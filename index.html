@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guida utente completa per l'app Conta Colli - Traccia e monitora il conteggio dei colli durante i turni lavorativi">
+    <title>Conta Colli - Guida Utente Completa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --success-color: #34C759;
+            --warning-color: #FF9500;
+            --danger-color: #FF3B30;
+            --background: #f5f5f7;
+            --card-background: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --border-color: #d2d2d7;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--background);
+        }
+
+        .header {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-logo svg {
+            width: 50px;
+            height: 50px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .nav {
+            background: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+        }
+
+        .nav h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .nav a:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .section {
+            background: var(--card-background);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .section h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section h4 {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .feature-card h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .numbered-list {
+            counter-reset: step-counter;
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .numbered-list li {
+            counter-increment: step-counter;
+            padding: 0.8rem 0;
+            padding-left: 3rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .numbered-list li:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left: 4px solid var(--warning-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 4px solid var(--success-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .info-box strong,
+        .warning-box strong,
+        .success-box strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .tab-item {
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-item:hover {
+            color: var(--primary-color);
+        }
+
+        .tab-item.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        .troubleshooting-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .troubleshooting-item h4 {
+            color: var(--danger-color);
+            margin-top: 0;
+        }
+
+        .footer {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            color: #86868b;
+            margin: 0.5rem 0;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .button {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .nav {
+                position: static;
+            }
+
+            .nav ul {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .emoji {
+            font-style: normal;
+            margin-right: 0.5rem;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-hover);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-logo">
+            <img src="icona.png" alt="Conta Colli" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+        <h1>Conta Colli</h1>
+        <p>Guida Utente Completa</p>
+    </div>
+
+    <div class="container">
+        <nav class="nav">
+            <h2>Indice Rapido</h2>
+            <ul>
+                <li><a href="#panoramica">Panoramica dell'App</a></li>
+                <li><a href="#navigazione">Navigazione Principale</a></li>
+                <li><a href="#turno-corrente">Turno Corrente</a></li>
+                <li><a href="#storico">Storico Turni</a></li>
+                <li><a href="#impostazioni">Impostazioni</a></li>
+                <li><a href="#live-activities">Live Activities e Widget</a></li>
+                <li><a href="#backup">Backup e Ripristino</a></li>
+                <li><a href="#problemi">Risoluzione Problemi</a></li>
+            </ul>
+        </nav>
+
+        <section id="panoramica" class="section">
+            <h2>Panoramica dell'App</h2>
+            <p><strong>Conta Colli</strong> è un'applicazione professionale progettata per tracciare e monitorare il conteggio dei colli durante i turni lavorativi. L'app offre funzionalità avanzate di cronometraggio, statistiche dettagliate e sincronizzazione dei dati.</p>
+
+            <h3>Caratteristiche Principali</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Cronometraggio Preciso</h4>
+                    <p>Tracciamento accurato del tempo per ogni lista e pausa, con timer in tempo reale.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Statistiche Dettagliate</h4>
+                    <p>Grafici e metriche avanzate per analizzare le tue performance nel tempo.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Sistema Obiettivi</h4>
+                    <p>Obiettivi personalizzabili per media oraria o numero totale di colli.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Live Activities</h4>
+                    <p>Monitoraggio in tempo reale con Dynamic Island e Lock Screen.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Backup Automatico</h4>
+                    <p>Sincronizzazione su iCloud con backup manuali esportabili.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Note Personalizzate</h4>
+                    <p>Aggiungi note e commenti a ogni turno per tracciare informazioni importanti.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Ripristino Turni</h4>
+                    <p>Riprendi turni precedenti dallo storico e continua dal punto in cui avevi lasciato.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Analisi Performance</h4>
+                    <p>Confronti temporali e tendenze per migliorare costantemente.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="navigazione" class="section">
+            <h2>Navigazione Principale</h2>
+            <p>L'app è organizzata in tre schede principali accessibili dalla barra di navigazione inferiore:</p>
+
+            <div class="tabs">
+                <div class="tab-item active">Turno</div>
+                <div class="tab-item">Storico</div>
+                <div class="tab-item">Impostazioni</div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Turno</h4>
+                    <p>Gestisce il turno di lavoro corrente, cronometri e conteggi in tempo reale. È la scheda principale dove registrerai le tue liste e monitorerai i progressi.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Storico</h4>
+                    <p>Visualizza tutti i turni completati con statistiche e analisi dettagliate. Accedi a grafici, confronti e dati storici delle tue performance.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Impostazioni</h4>
+                    <p>Configura obiettivi, backup e preferenze dell'applicazione. Personalizza l'app secondo le tue esigenze lavorative.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="turno-corrente" class="section">
+            <h2>Turno Corrente</h2>
+
+            <h3>Avvio del Primo Turno</h3>
+            <ol class="numbered-list">
+                <li><strong>Inserimento Colli:</strong> Digita il numero di colli nella casella di input</li>
+                <li><strong>Inizio Lista:</strong> Premi <strong>"Inizia Lista"</strong> per avviare il cronometro</li>
+                <li><strong>Conteggio Automatico:</strong> Il timer inizia automaticamente a tracciare il tempo</li>
+            </ol>
+
+            <div class="info-box">
+                <strong>💡 Suggerimento</strong>
+                <p>Il timer inizia automaticamente quando premi "Inizia Lista" e continua a contare fino a quando non metti in pausa o registri la lista successiva.</p>
+            </div>
+
+            <h3>Durante il Lavoro</h3>
+
+            <h4>Registrazione delle Liste</h4>
+            <ul class="feature-list">
+                <li><strong>Lista Successiva:</strong> Premi "Lista Successiva" per registrare la lista corrente e iniziarne una nuova</li>
+                <li><strong>Modifica Colli:</strong> Puoi modificare il numero di colli prima di registrare la lista</li>
+                <li><strong>Pausa:</strong> Premi "Pausa" per fermare temporaneamente il cronometro</li>
+            </ul>
+
+            <h4>Controlli Disponibili</h4>
+            <ul class="feature-list">
+                <li><strong>Annulla Lista:</strong> Cancella la lista in corso senza registrarla</li>
+                <li><strong>Annulla Ultima:</strong> Rimuove l'ultima lista registrata (funzione "undo")</li>
+                <li><strong>Modifica Colli:</strong> Tocca i pulsanti +/- accanto a ogni lista per correggere i valori</li>
+            </ul>
+
+            <h3>Informazioni Visualizzate</h3>
+
+            <h4>Sezione Obiettivi (se abilitati)</h4>
+            <p>Viene visualizzato un banner verde per l'obiettivo colli/ora e blu per l'obiettivo numero di colli.</p>
+
+            <h4>Statistiche Turno Corrente</h4>
+            <ul class="feature-list">
+                <li><strong>Colli Totali:</strong> Numero totale di colli processati</li>
+                <li><strong>Liste:</strong> Numero di liste completate</li>
+                <li><strong>Tempo:</strong> Durata totale del turno (escluse le pause)</li>
+                <li><strong>Media Oraria:</strong> Colli processati per ora di lavoro effettivo</li>
+                <li><strong>Lista Attuale:</strong> Tempo trascorso sulla lista in corso</li>
+            </ul>
+
+            <h4>Cronometri in Tempo Reale</h4>
+            <ul class="feature-list">
+                <li><strong>Timer Lista:</strong> Quando una lista è attiva</li>
+                <li><strong>Timer Pausa:</strong> Quando il turno è in pausa</li>
+                <li><strong>Tempo Totale:</strong> Durata complessiva del turno</li>
+            </ul>
+
+            <h3>Chiusura del Turno</h3>
+
+            <h4>Metodi di Chiusura</h4>
+            <ol class="numbered-list">
+                <li><strong>Chiudi Turno:</strong> Registra l'ultima lista e archivia il turno</li>
+                <li><strong>Swipe su ultima lista:</strong> Chiede conferma dei colli prelevati e archivia in automatico il turno</li>
+                <li><strong>Reset Turno:</strong> Cancella completamente il turno corrente (richiede conferma)</li>
+            </ol>
+
+            <div class="success-box">
+                <strong>Cosa Succede alla Chiusura</strong>
+                <ul class="feature-list">
+                    <li>Il turno viene archiviato nello Storico</li>
+                    <li>I dati vengono salvati automaticamente</li>
+                    <li>Si attiva il backup automatico (se configurato)</li>
+                    <li>Le Live Activities vengono terminate</li>
+                    <li>Il contatore si azzera per un nuovo turno</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="storico" class="section">
+            <h2>Storico Turni</h2>
+
+            <h3>Visualizzazioni Disponibili</h3>
+            <p>La sezione storico offre multiple modalità di visualizzazione dei dati:</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📊 Panoramica</h4>
+                    <ul class="feature-list">
+                        <li>Statistiche Generali: Totali, medie e record personali</li>
+                        <li>Grafici: Andamento delle performance nel tempo</li>
+                        <li>Riassunto Periodi: Dati aggregati per settimana/mese</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>📋 Lista Turni</h4>
+                    <ul class="feature-list">
+                        <li>Elenco Dettagliato: Tutti i turni con date e statistiche</li>
+                        <li>Ricerca e Filtri: Trova turni specifici</li>
+                        <li>Azioni Rapide: Swipe per eliminare o riprendere turni</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>Analisi</h4>
+                    <ul class="feature-list">
+                        <li>Grafici Avanzati: Performance, tendenze e distribuzioni</li>
+                        <li>Confronti Temporali: Analisi comparative tra periodi</li>
+                        <li>Metriche Dettagliate: Statistiche approfondite</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Filtri Temporali</h3>
+
+            <h4>Periodi Predefiniti</h4>
+            <ul class="feature-list">
+                <li><strong>Tutti:</strong> Visualizza tutti i turni registrati</li>
+                <li><strong>Settimana:</strong> Ultimi 7 giorni</li>
+                <li><strong>Mese:</strong> Ultimi 30 giorni</li>
+                <li><strong>Personalizzato:</strong> Seleziona date specifiche</li>
+            </ul>
+
+            <h4>Modalità Confronto</h4>
+            <ul class="feature-list">
+                <li>Confronta le performance tra due periodi diversi</li>
+                <li>Analisi delle variazioni percentuali</li>
+                <li>Identificazione di trend e pattern</li>
+            </ul>
+
+            <h3>Funzionalità Avanzate</h3>
+
+            <h4>Note sui Turni</h4>
+            <ol class="numbered-list">
+                <li><strong>Aggiungi Note:</strong> Tocca l'icona note per aggiungere commenti</li>
+                <li><strong>Modifica:</strong> Le note sono modificabili in qualsiasi momento</li>
+                <li><strong>Ricerca:</strong> Cerca turni basandoti sul contenuto delle note</li>
+            </ol>
+
+            <h4>Ripresa Turni</h4>
+            <ol class="numbered-list">
+                <li><strong>Selezione:</strong> Tocca "Riprendi" accanto a un turno nello storico</li>
+                <li><strong>Conferma:</strong> Conferma l'operazione nel dialog</li>
+                <li><strong>Nuovo Turno:</strong> Viene creato un nuovo turno con i dati del turno selezionato</li>
+                <li><strong>Continuazione:</strong> Puoi continuare a lavorare dal punto dove avevi lasciato</li>
+            </ol>
+
+            <div class="warning-box">
+                <strong>⚠️ Nota Importante</strong>
+                <p>Quando riprendi un turno, il tasto "Nuovo Turno" è disabilitato. Il turno va chiuso o con swipe sulla card della lista in corso o dal menu azioni turno "Chiudi Turno".</p>
+            </div>
+
+            <h4>Modifica Dati</h4>
+            <ul class="feature-list">
+                <li><strong>Correzione Colli:</strong> Tocca i pulsanti +/- per correggere i valori</li>
+                <li><strong>Eliminazione Liste:</strong> Swipe a sinistra su una lista per eliminarla</li>
+                <li><strong>Eliminazione Turni:</strong> Elimina intere entry dallo storico</li>
+            </ul>
+        </section>
+
+        <section id="impostazioni" class="section">
+            <h2>Impostazioni</h2>
+
+            <h3>Configurazione Obiettivi</h3>
+
+            <h4>Abilitazione</h4>
+            <ol class="numbered-list">
+                <li>Vai in <strong>Impostazioni</strong></li>
+                <li>Attiva l'interruttore <strong>"Obiettivi"</strong></li>
+                <li>Tocca <strong>"Configura obiettivi"</strong></li>
+            </ol>
+
+            <h4>Tipi di Obiettivi</h4>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📊 Media Oraria</h4>
+                    <p>Obiettivo basato sui colli processati per ora di lavoro effettivo. Ideale per misurare la velocità di lavoro.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📦 Numero Colli</h4>
+                    <p>Obiettivo basato sul totale di colli processati nel turno. Perfetto per raggiungere target giornalieri specifici.</p>
+                </div>
+            </div>
+
+            <h4>Configurazione Personalizzata</h4>
+            <ol class="numbered-list">
+                <li><strong>Seleziona Tipo:</strong> Scegli tra media oraria o totale colli</li>
+                <li><strong>Aggiungi Soglie:</strong> Crea multiple soglie di obiettivi</li>
+                <li><strong>Nome Obiettivo:</strong> Assegna nomi personalizzati</li>
+                <li><strong>Valori Soglia:</strong> Imposta i valori numerici per ogni soglia</li>
+            </ol>
+
+            <div class="info-box">
+                <strong>💡 Esempio di Configurazione</strong>
+                <p>Puoi creare diverse soglie come "Base" (300 colli/h), "Buono" (350 colli/h), "Eccellente" (400 colli/h) per monitorare diversi livelli di performance.</p>
+            </div>
+
+            <h3>Backup e Ripristino</h3>
+
+            <h4>Backup Automatico iCloud</h4>
+            <ul class="feature-list">
+                <li><strong>Attivazione:</strong> Disponibile nelle impostazioni</li>
+                <li><strong>Frequenza:</strong> Automatico dopo ogni modifica significativa</li>
+                <li><strong>Contenuto:</strong> Tutti i turni, note e configurazioni</li>
+            </ul>
+
+            <h4>Backup Manuale</h4>
+            <ol class="numbered-list">
+                <li><strong>Esporta Backup:</strong> Crea un file di backup completo</li>
+                <li><strong>Condivisione:</strong> Condividi il file via AirDrop, email, etc.</li>
+                <li><strong>Archiviazione:</strong> Salva nella cartella documenti dell'app</li>
+            </ol>
+
+            <h4>Ripristino</h4>
+            <ol class="numbered-list">
+                <li><strong>Da iCloud:</strong> Ripristina automaticamente dal backup cloud</li>
+                <li><strong>Da File:</strong> Importa un file di backup precedentemente esportato</li>
+                <li><strong>Sovrascrittura:</strong> Il ripristino sostituisce tutti i dati correnti</li>
+            </ol>
+
+            <div class="warning-box">
+                <strong>⚠️ Attenzione</strong>
+                <p>Il ripristino da backup sostituisce completamente tutti i dati correnti. Assicurati di avere un backup recente prima di procedere.</p>
+            </div>
+        </section>
+
+        <section id="live-activities" class="section">
+            <h2>Live Activities e Widget</h2>
+
+            <h3>Live Activities</h3>
+            <p>Le Live Activities mostrano informazioni in tempo reale del turno corrente direttamente sul tuo iPhone:</p>
+
+            <h4>Dynamic Island</h4>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Icona Stato</h4>
+                    <p>Cambia colore in base allo stato del turno:<br>
+                    <strong>Blu</strong> = Attivo<br>
+                    <strong>Arancione</strong> = Pausa</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Contatore Colli</h4>
+                    <p>Numero di colli aggiornato in tempo reale mentre lavori.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Modalità Compatta</h4>
+                    <p>Informazioni essenziali sempre visibili nella parte superiore dello schermo.</p>
+                </div>
+            </div>
+
+            <h4>Lock Screen</h4>
+            <ul class="feature-list">
+                <li><strong>Timer Live:</strong> Cronometro che si aggiorna automaticamente</li>
+                <li><strong>Statistiche:</strong> Colli totali e numero liste</li>
+                <li><strong>Stato Visuale:</strong> Indicatori colorati per stato attivo/pausa</li>
+            </ul>
+
+            <h4>Attivazione Automatica</h4>
+            <div class="success-box">
+                <strong>Funzionamento Automatico</strong>
+                <ul class="feature-list">
+                    <li>Si avvia automaticamente quando inizi una lista</li>
+                    <li>Si aggiorna ad ogni cambiamento di stato</li>
+                    <li>Si chiude automaticamente alla fine del turno</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="backup" class="section">
+            <h2>Backup e Ripristino</h2>
+
+            <h3>Tipi di Backup</h3>
+
+            <h4>1. Backup iCloud Automatico</h4>
+            <ul class="feature-list">
+                <li><strong>Attivazione:</strong> Configurabile nelle impostazioni</li>
+                <li><strong>Trigger:</strong> Dopo ogni modifica significativa (chiusura turno, modifica note)</li>
+                <li><strong>Contenuto:</strong> Tutti i dati dell'app in formato sicuro</li>
+                <li><strong>Ripristino:</strong> Automatico al primo avvio su nuovo dispositivo</li>
+            </ul>
+
+            <h4>2. Backup Manuale</h4>
+            <ul class="feature-list">
+                <li><strong>File JSON:</strong> Formato leggibile e modificabile</li>
+                <li><strong>Contenuto Completo:</strong> Turni, note, configurazioni obiettivi</li>
+                <li><strong>Condivisione:</strong> Via sistema di condivisione iOS standard</li>
+                <li><strong>Compatibilità:</strong> Funziona tra diverse versioni dell'app</li>
+            </ul>
+
+            <h3>Processo di Backup</h3>
+
+            <h4>Creazione Backup Manuale</h4>
+            <ol class="numbered-list">
+                <li>Vai in <strong>Impostazioni</strong></li>
+                <li>Tocca <strong>"Esporta Backup Manuale"</strong></li>
+                <li>Attendi la creazione del file</li>
+                <li>Scegli dove condividere/salvare il file</li>
+                <li>Il file temporaneo viene pulito automaticamente</li>
+            </ol>
+
+            <h4>Ripristino da Backup</h4>
+            <ol class="numbered-list">
+                <li><strong>Seleziona Fonte:</strong> iCloud o file locale</li>
+                <li><strong>Conferma Sovrascrittura:</strong> I dati correnti verranno sostituiti</li>
+                <li><strong>Importazione:</strong> L'app importa tutti i dati dal backup</li>
+                <li><strong>Verifica:</strong> Controlla che tutti i dati siano stati importati correttamente dopo il riavvio dell'app</li>
+            </ol>
+
+            <h3>Sicurezza dei Dati</h3>
+            <div class="info-box">
+                <strong>Protezione dei Tuoi Dati</strong>
+                <ul class="feature-list">
+                    <li><strong>Crittografia:</strong> I backup iCloud sono crittografati</li>
+                    <li><strong>Integrità:</strong> Verifiche automatiche dei dati durante import/export</li>
+                    <li><strong>Versioning:</strong> Supporto per formati backup di versioni precedenti</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="problemi" class="section">
+            <h2>Risoluzione Problemi</h2>
+
+            <h3>Problemi Comuni</h3>
+
+            <div class="troubleshooting-item">
+                <h4>❓ Le Live Activities non si attivano</h4>
+                <p><strong>Soluzioni:</strong></p>
+                <ol class="numbered-list">
+                    <li>Controlla che le Live Activities siano abilitate per l'app in Impostazioni iOS</li>
+                    <li>Vai in Impostazioni iOS > Conta Colli > Notifiche > Live Activities</li>
+                    <li>Riavvia l'app se le attività sembrano bloccate</li>
+                </ol>
+            </div>
+
+            <div class="troubleshooting-item">
+                <h4>❓ I dati non si sincronizzano</h4>
+                <p><strong>Soluzioni:</strong></p>
+                <ol class="numbered-list">
+                    <li>Verifica la connessione internet per iCloud</li>
+                    <li>Controlla che iCloud sia abilitato per l'app</li>
+                    <li>Vai in Impostazioni iOS > [Il tuo nome] > iCloud > Conta Colli</li>
+                    <li>Forza un backup manuale e verifica la creazione del file</li>
+                    <li>Prova a riavviare l'app per forzare il caricamento</li>
+                </ol>
+            </div>
+
+            <div class="troubleshooting-item">
+                <h4>❓ Le statistiche sembrano sbagliate</h4>
+                <p><strong>Soluzioni:</strong></p>
+                <ol class="numbered-list">
+                    <li>Verifica che le pause siano state gestite correttamente</li>
+                    <li>Controlla le modifiche manuali ai colli nelle liste</li>
+                    <li>Assicurati che i timer siano stati avviati e fermati correttamente</li>
+                    <li>Verifica i filtri temporali applicati nello storico</li>
+                </ol>
+            </div>
+
+            <div class="troubleshooting-item">
+                <h4>❓ Problemi con i backup</h4>
+                <p><strong>Soluzioni:</strong></p>
+                <ol class="numbered-list">
+                    <li>Assicurati di avere spazio di archiviazione sufficiente</li>
+                    <li>Verifica i permessi di scrittura nella cartella Documenti</li>
+                    <li>Per problemi iCloud, controlla le impostazioni di sincronizzazione</li>
+                    <li>Prova prima un backup manuale per testare la funzionalità</li>
+                    <li>Verifica di avere l'ultima versione dell'app installata</li>
+                </ol>
+            </div>
+
+            <h3>Contatti e Supporto</h3>
+            <div class="info-box">
+                <strong>Hai bisogno di aiuto?</strong>
+                <p>Per problemi persistenti o richieste di funzionalità:</p>
+                <ul class="feature-list">
+                    <li>Email: <a href="mailto:support@contacolli.app" style="color: var(--primary-color);">support@contacolli.app</a></li>
+                    <li>Usa il sistema di feedback integrato nell'app</li>
+                    <li>Contatta il supporto attraverso l'App Store</li>
+                    <li>Fornisci sempre versione iOS e dettagli specifici del problema</li>
+                </ul>
+            </div>
+
+            <h3>Dati Tecnici</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value">iOS 18.6+</span>
+                    <span class="stat-label">Versione Minima</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">JSON</span>
+                    <span class="stat-label">Formato Backup</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">iCloud</span>
+                    <span class="stat-label">Sincronizzazione</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">Italiano</span>
+                    <span class="stat-label">Lingua</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="footer">
+        <p><strong>Conta Colli</strong></p>
+        <p>© 2025 Conta Colli - Tutti i diritti riservati</p>
+        <p>Per supporto: <a href="mailto:support@contacolli.app">support@contacolli.app</a></p>
+    </div>
+
+    <div class="back-to-top" id="backToTop">
+        ↑
+    </div>
+
+    <script>
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
